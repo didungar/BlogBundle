@@ -16,6 +16,7 @@ class DefaultController extends Controller
     public function getPostAction($id_post, $slug)
     {
 	$oPostService = new PostService($this->get('service_container'));
-        return [];
+	$oPost = $oPostService->getPost($id_post);
+        return ['oPost'=>$oPost,];
     }
 }

@@ -6,6 +6,9 @@ class PostService {
 	public function __construct($service_container) {
 		$this->container = $service_container;
 	}
+	public function getPost($id_post) {
+		return null; // TODO
+	}
 }
 
 
