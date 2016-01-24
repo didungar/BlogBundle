@@ -7,6 +7,7 @@ class PostService {
 		$this->container = $service_container;
 	}
 	public function getPost($id_post) {
+		$em = $this->container->get('doctrine')->getManager();
 		return null; // TODO
 	}
 }
