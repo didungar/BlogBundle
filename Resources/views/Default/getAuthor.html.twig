@@ -2,6 +2,10 @@
 
 {% block body %}
 	<article>
-	
+	{% if oAuthor %}
+		{{oAuthor.name}}
+	{% else %}
+		Autheur non trouvé.
+	{% endif %}
 	</article>
 {% endblock %}
