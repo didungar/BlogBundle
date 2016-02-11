@@ -7,8 +7,13 @@ class PostService {
 		$this->container = $service_container;
 	}
 	public function getPost($id_post) {
+		if ( ! is_numeric($id_post) ) {
+			throw new \Exception('$id_post not a number');
+		}
 		$em = $this->container->get('doctrine')->getManager();
-		return null; // TODO
+		return $em->getRepository('DidUngarBlogBundle:BlogPost')->findOneBy(
+			['id'=>$id_post]
+		);
 	}
 }
 

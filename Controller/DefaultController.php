@@ -19,4 +19,24 @@ class DefaultController extends Controller
 	$oPost = $oPostService->getPost($id_post);
         return ['oPost'=>$oPost,];
     }
+    /**
+     * @Route("/author/{id_author}.html")
+     * @Template()
+     */
+    public function getAuthorAction($id_author)
+    {
+	$em = $this->getDoctrine()->getManager();
+	$repAuthors = $em->getRepository('DidUngarBlogBundle:Author');
+	$oAuthor = $repAuthors->find($id_author);
+
+        return ['oAuthor'=>$oAuthor,];
+    }
+    /**
+     * @Route("/author/{id_post}-{name}.html")
+     * @Template()
+     */
+    public function getAuthorNameAction($id_author, $name)
+    {
+        return $this->getAuthorAction($id_author);
+    }
 }
