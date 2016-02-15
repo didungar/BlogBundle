@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<article>
-	
+	<article class="article-blog">
+		<h2>NEWS</h2>
+		<p class="news-date"><i class="fa fa-calendar-o"></i> An 12, 23 Terreur</p>
+		<h3>{{oPost.title}}</h3>
+		<p>{{oPost.text}}</p>
+		<p class="author">Swen Nam</p>
 	</article>
 {% endblock %}

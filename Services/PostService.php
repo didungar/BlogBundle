@@ -11,7 +11,7 @@ class PostService {
 			throw new \Exception('$id_post not a number');
 		}
 		$em = $this->container->get('doctrine')->getManager();
-		return $em->getRepository('DidUngarBlogBundle:BlogPost')->findOneBy(
+		return $em->getRepository('DidUngarBlogBundle:Post')->findOneBy(
 			['id'=>$id_post]
 		);
 	}
