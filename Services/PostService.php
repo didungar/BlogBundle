@@ -15,6 +15,10 @@ class PostService {
 			['id'=>$id_post]
 		);
 	}
+	public function getPosts() {
+		$em = $this->container->get('doctrine')->getManager();
+		return $em->getRepository('DidUngarBlogBundle:Post')->findBy([]);
+	}
 }
 
 

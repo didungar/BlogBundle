@@ -10,7 +10,7 @@ use DidUngar\BlogBundle\Services\PostService;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/{id_post}-{slug}.html")
+     * @Route("/articles/{id_post}-{slug}.html", name="DidBlog_Article")
      * @Template()
      */
     public function getPostAction($id_post, $slug)
@@ -18,6 +18,16 @@ class DefaultController extends Controller
 	$oPostService = new PostService($this->get('service_container'));
 	$oPost = $oPostService->getPost($id_post);
         return ['oPost'=>$oPost,];
+    }
+    /**
+     * @Route("/articles", name="DidBlog_Articles")
+     * @Template()
+     */
+    public function getPostsAction()
+    {
+	$oPostService = new PostService($this->get('service_container'));
+	$aPosts = $oPostService->getPosts();
+        return ['aPosts'=>$aPosts,];
     }
     /**
      * @Route("/author/{id_author}.html")

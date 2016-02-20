@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+	{% for oPost in aPosts %}
 	<article class="article-blog">
 		<p class="news-date"><i class="fa fa-calendar-o"></i>{{oPost.dateAdd|date('Y-m-d')}}</p>
 		<h3>{{oPost.title}}</h3>
-		<p>{{oPost.text}}</p>
+		<p>{{oPost.descri}} <a href="{{ path('DidBlog_Article', {'id_post': oPost.id, 'slug': oPost.slug})}}">[suite]</a></p>
 		<p class="author">Swen Nam</p>
 	</article>
+	{% endfor %}
 {% endblock %}
