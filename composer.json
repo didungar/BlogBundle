@@ -1,0 +1,19 @@
+{
+    "name": "DidUngar/bundle-blogbundle",
+    "type": "library",
+    "description": "Bundle for make simply a blog.",
+    "authors": [
+        {
+            "name": "Didier Ungar",
+            "email": "didungar@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["/"]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
