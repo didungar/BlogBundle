@@ -17,7 +17,8 @@ class PostService {
 	}
 	public function getPosts() {
 		$em = $this->container->get('doctrine')->getManager();
-		return $em->getRepository('DidUngarBlogBundle:Post')->findBy([]);
+
+		return $em->getRepository('DidUngarBlogBundle:Post')->findBy([],['dateAdd'=>'DESC']);
 	}
 }
 
