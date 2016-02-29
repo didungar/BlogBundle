@@ -17,7 +17,15 @@ class DefaultController extends Controller
     {
 	$oPostService = new PostService($this->get('service_container'));
 	$oPost = $oPostService->getPost($id_post);
-        return ['oPost'=>$oPost,];
+	$aData = ['oPost'=>$oPost,];
+	if ( $this->getParameter('DidUngarBlogBundle_DateService') ) {
+		$sDateService = $this->getParameter('DidUngarBlogBundle_DateService');
+		$aData['oDateService'] = new $sDateService($this->get('service_container'));
+	}
+	if ( $this->getParameter('DidUngarBlogBundle_getPostTpl') ) {
+		return $this->render($this->getParameter('DidUngarBlogBundle_getPostTpl'), $aData);
+	}
+        return $aData;
     }
     /**
      * @Route("/articles", name="DidBlog_Articles")
