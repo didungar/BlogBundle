@@ -2,9 +2,9 @@
 
 {% block body %}
 	<article class="article-blog">
-		<p class="news-date"><i class="fa fa-calendar-o"></i>{{oPost.dateAdd|date('Y-m-d')}}</p>
+		<p class="news-date"><i class="fa fa-calendar-o"></i>{% block date %}{{oPost.dateAdd|date('Y-m-d')}}{% endblock %}</p>
 		<h3>{{oPost.title}}</h3>
-		<p>{{oPost.text}}</p>
-		<p class="author">Swen Nam</p>
+		<p>{% autoescape false %}{{oPost.text}}{% endautoescape %}</p>
+		<p class="author">{% block author %}TODO{% endblock %}</p>
 	</article>
 {% endblock %}
