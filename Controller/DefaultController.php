@@ -29,13 +29,22 @@ class DefaultController extends Controller
     }
     /**
      * @Route("/articles", name="DidBlog_Articles")
+     * @Route("/articles/")
      * @Template()
      */
     public function getPostsAction()
     {
 	$oPostService = new PostService($this->get('service_container'));
 	$aPosts = $oPostService->getPosts();
-        return ['aPosts'=>$aPosts,];
+	$aData = ['aPosts'=>$aPosts,];
+	if ( $this->getParameter('DidUngarBlogBundle_DateService') ) {
+		$sDateService = $this->getParameter('DidUngarBlogBundle_DateService');
+		$aData['oDateService'] = new $sDateService($this->get('service_container'));
+	}
+	if ( $this->getParameter('DidUngarBlogBundle_getPostsTpl') ) {
+		return $this->render($this->getParameter('DidUngarBlogBundle_getPostsTpl'), $aData);
+	}
+        return $aData;
     }
     /**
      * @Route("/author/{id_author}.html")

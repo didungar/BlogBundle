@@ -3,10 +3,10 @@
 {% block body %}
 	{% for oPost in aPosts %}
 	<article class="article-blog">
-		<p class="news-date"><i class="fa fa-calendar-o"></i>{{oPost.dateAdd|date('Y-m-d')}}</p>
+		<p class="news-date"><i class="fa fa-calendar-o"></i>{% block date %}{{oPost.dateAdd|date('Y-m-d')}}{% endblock %}</p>
 		<h3>{{oPost.title}}</h3>
 		<p>{{oPost.descri}} <a href="{{ path('DidBlog_Article', {'id_post': oPost.id, 'slug': oPost.slug})}}">[suite]</a></p>
-		<p class="author">Swen Nam</p>
+		<p class="author">{% block author %}TODO{% endblock %}</p>
 	</article>
 	{% endfor %}
 {% endblock %}
