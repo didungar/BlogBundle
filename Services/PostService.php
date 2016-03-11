@@ -15,10 +15,19 @@ class PostService {
 			['id'=>$id_post]
 		);
 	}
-	public function getPosts() {
+	public function getPosts(array $aArgs = []) {
+		$iFirstResult = 0;
+		$iMaxResults = 10;
 		$em = $this->container->get('doctrine')->getManager();
+		$query = $em->createQuery(
+			    'SELECT p
+			    FROM DidUngarBlogBundle:Post p
+			    ORDER BY p.dateAdd DESC'
+			)
+			->setFirstResult($iFirstResult)
+                	->setMaxResults($iMaxResults);
 
-		return $em->getRepository('DidUngarBlogBundle:Post')->findBy([],['dateAdd'=>'DESC']);
+		return $query->getResult();//$em->getRepository('DidUngarBlogBundle:Post')->findBy([],['dateAdd'=>'DESC']);
 	}
 }
 
