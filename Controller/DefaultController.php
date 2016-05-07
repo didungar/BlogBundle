@@ -55,8 +55,16 @@ class DefaultController extends Controller
      */
     public function getPostsOfCategAction($slug)
     {
+	$em = $this->get('service_container')->get('doctrine')->getManager();
+	$oCateg = $em->getRepository('DidUngarBlogBundle:Categ')->findOneBy(
+		['slug'=>$slug,]
+	);
+	if ( empty($oCateg) ) {
+		throw new \Exception('$oCateg not found');
+	}
+
 	$oPostService = new PostService($this->get('service_container'));
-	$aPosts = $oPostService->getPosts();
+	$aPosts = $oPostService->getPosts(['id_categ'=>$oCateg->getId(),]);
 	$aData = ['aPosts'=>$aPosts,];
 	if ( $this->getParameter('DidUngarBlogBundle_DateService') ) {
 		$sDateService = $this->getParameter('DidUngarBlogBundle_DateService');
