@@ -27,6 +27,7 @@ class DefaultController extends Controller
 	}
         return $aData;
     }
+
     /**
      * @Route("/articles", name="DidBlog_Articles")
      * @Route("/articles/")
@@ -46,6 +47,27 @@ class DefaultController extends Controller
 	}
         return $aData;
     }
+
+    /**
+     * @Route("/articles-{slug}", name="DidBlog_ArticlesOfCateg")
+     * @Route("/articles-{slug}/")
+     * @Template()
+     */
+    public function getPostsOfCategAction($slug)
+    {
+	$oPostService = new PostService($this->get('service_container'));
+	$aPosts = $oPostService->getPosts();
+	$aData = ['aPosts'=>$aPosts,];
+	if ( $this->getParameter('DidUngarBlogBundle_DateService') ) {
+		$sDateService = $this->getParameter('DidUngarBlogBundle_DateService');
+		$aData['oDateService'] = new $sDateService($this->get('service_container'));
+	}
+	if ( $this->getParameter('DidUngarBlogBundle_getPostsTpl') ) {
+		return $this->render($this->getParameter('DidUngarBlogBundle_getPostsTpl'), $aData);
+	}
+        return $aData;
+    }
+
     /**
      * @Route("/author/{id_author}.html")
      * @Template()
