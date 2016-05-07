@@ -15,6 +15,13 @@ class PostService {
 			['id'=>$id_post]
 		);
 	}
+
+	/**
+	 * @param array $aArgs = []
+	 *	- array|integer id_categ optional
+	 *	- integer max_result optional
+	 * @return lstPost
+	**/
 	public function getPosts(array $aArgs = []) {
 		// Initialisation :
 		$iFirstResult = 0;
@@ -24,6 +31,15 @@ class PostService {
 		$em = $this->container->get('doctrine')->getManager();
 
 		// Analyse de la demande :
+		if ( !empty($aArgs['max_result']) ) {
+			if ( ! is_numeric($aArgs['max_result']) ) {
+				throw new \Exception('max_result bad value (not numeric)');
+			}
+			if ( $aArgs['max_result']<=0 ) {
+				throw new \Exception('max_result bad-value : negatif');
+			}
+			$iMaxResults = (int)$aArgs['max_result'];
+		}
 		if ( !empty($aArgs['id_categ']) ) {
 			if ( !is_array($aArgs['id_categ']) ) {
 				$aArgs['id_categ'] = [$aArgs['id_categ']];
