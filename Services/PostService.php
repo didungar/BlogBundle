@@ -29,6 +29,7 @@ class PostService {
 		$aWhere = [];
 		$aParameters = [];
 		$em = $this->container->get('doctrine')->getManager();
+		$sOrder = ' ORDER BY p.dateAdd DESC';
 
 		// Analyse de la demande :
 		if ( !empty($aArgs['max_result']) ) {
@@ -49,11 +50,16 @@ class PostService {
 					throw new \Exception('id_categ bad value (not array / numeric)');
 				}
 				if ( $id_categ<=0 ) {
+					throw new \Exception('id_categ not positive : '.$id_categ);
+				}
+				$oCateg = $em->getRepository('DidUngarBlogBundle:Categ')->findOneBy(['id'=>$aArgs['id_categ']]);
+				if ( empty($oCateg) ) {
 					throw new \Exception('id_categ not found : '.$id_categ);
 				}
 			}
 			$aWhere[] = 'p.idCateg IN(:id_categ)';
 			$aParameters[':id_categ'] = $aArgs['id_categ'];
+			$sOrder = 'ORDER BY p.'.$oCateg->getOrderCols().' '.$oCateg->getOrderSens();
 		}
 
 		// Query :
@@ -61,8 +67,8 @@ class PostService {
 		$query = $em->createQuery(
 			'SELECT p
 			FROM DidUngarBlogBundle:Post p
-			'.$sWhere.'
-			ORDER BY p.dateAdd DESC'
+			'.$sWhere
+			.$sOrder
 			)
 			->setFirstResult($iFirstResult)
                 	->setMaxResults($iMaxResults);
