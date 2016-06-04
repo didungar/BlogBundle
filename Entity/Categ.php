@@ -42,6 +42,20 @@ class Categ
      */
     private $title;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_cols", type="string", length=30)
+     */
+    private $orderCols;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_sens", type="string", length=5)
+     */
+    private $orderSens;
+
 
     /**
      * Get id
@@ -123,6 +137,55 @@ class Categ
     public function getTitle()
     {
         return $this->title;
+    }
+
+
+    /**
+     * Set order_cols
+     *
+     * @param string $orderCols
+     *
+     * @return Categ
+     */
+    public function setOrderCols($orderCols)
+    {
+        $this->orderCols = $orderCols;
+
+        return $this;
+    }
+
+    /**
+     * Get orderCols
+     *
+     * @return string
+     */
+    public function getOrderCols()
+    {
+        return $this->orderCols;
+    }
+
+    /**
+     * Set order_sens
+     *
+     * @param string $orderSens
+     *
+     * @return Categ
+     */
+    public function setOrderSens($orderSens)
+    {
+        $this->orderSens = $orderSens;
+
+        return $this;
+    }
+
+    /**
+     * Get orderSens
+     *
+     * @return string
+     */
+    public function getOrderSens()
+    {
+        return $this->orderSens;
     }
 }
 
