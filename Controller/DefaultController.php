@@ -5,6 +5,7 @@ namespace DidUngar\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -61,7 +62,7 @@ class DefaultController extends Controller
 			['slug' => $slug,]
 		);
 		if (empty($oCateg)) {
-			throw new \Exception('$oCateg not found');
+			throw new NotFoundHttpException('$oCateg not found');
 		}
 
 		$oPostService = $this->get('didungar_blog_post_service');
@@ -87,6 +88,9 @@ class DefaultController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$repAuthors = $em->getRepository('DidUngarBlogBundle:Author');
 		$oAuthor = $repAuthors->find($id_author);
+		if (empty($oAuthor)) {
+			throw new NotFoundHttpException('$oAuthor not found');
+		}
 
 		return ['oAuthor' => $oAuthor,];
 	}
