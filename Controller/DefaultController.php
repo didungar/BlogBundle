@@ -5,7 +5,6 @@ namespace DidUngar\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use DidUngar\BlogBundle\Services\PostService;
 
 class DefaultController extends Controller
 {
@@ -15,7 +14,7 @@ class DefaultController extends Controller
 	 */
 	public function getPostAction($id_post, $slug)
 	{
-		$oPostService = new PostService($this->get('service_container'));
+		$oPostService = $this->get('didungar_blog_post_service');
 		$oPost = $oPostService->getPost($id_post);
 		$aData = ['oPost' => $oPost,];
 		if ($this->getParameter('DidUngarBlogBundle_DateService')) {
@@ -25,6 +24,7 @@ class DefaultController extends Controller
 		if ($this->getParameter('DidUngarBlogBundle_getPostTpl')) {
 			return $this->render($this->getParameter('DidUngarBlogBundle_getPostTpl'), $aData);
 		}
+
 		return $aData;
 	}
 
@@ -35,7 +35,7 @@ class DefaultController extends Controller
 	 */
 	public function getPostsAction()
 	{
-		$oPostService = new PostService($this->get('service_container'));
+		$oPostService = $this->get('didungar_blog_post_service');
 		$aPosts = $oPostService->getPosts();
 		$aData = ['aPosts' => $aPosts,];
 		if ($this->getParameter('DidUngarBlogBundle_DateService')) {
@@ -45,6 +45,7 @@ class DefaultController extends Controller
 		if ($this->getParameter('DidUngarBlogBundle_getPostsTpl')) {
 			return $this->render($this->getParameter('DidUngarBlogBundle_getPostsTpl'), $aData);
 		}
+
 		return $aData;
 	}
 
@@ -63,7 +64,7 @@ class DefaultController extends Controller
 			throw new \Exception('$oCateg not found');
 		}
 
-		$oPostService = new PostService($this->get('service_container'));
+		$oPostService = $this->get('didungar_blog_post_service');
 		$aPosts = $oPostService->getPosts(['id_categ' => $oCateg->getId(),]);
 		$aData = ['aPosts' => $aPosts,];
 		if ($this->getParameter('DidUngarBlogBundle_DateService')) {
@@ -73,6 +74,7 @@ class DefaultController extends Controller
 		if ($this->getParameter('DidUngarBlogBundle_getPostsTpl')) {
 			return $this->render($this->getParameter('DidUngarBlogBundle_getPostsTpl'), $aData);
 		}
+
 		return $aData;
 	}
 

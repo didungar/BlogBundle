@@ -1,0 +1,5 @@
+services:
+    didungar_blog_post_service:
+        class: DidUngar\BlogBundle\Services\PostService
+        arguments: ["@service_container"]
+
